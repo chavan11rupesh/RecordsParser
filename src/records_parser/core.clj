@@ -1,6 +1,8 @@
 (ns records_parser.core
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
+            [records_parser.api :refer [api-routes]]
+            [ring.adapter.jetty :as jetty]
             [records_parser.utils :as utils])
   (:gen-class))
 
@@ -81,3 +83,7 @@
     (print-records "\nsorted by birth date :" records sorted-by-dob)
     (print-records "\nsorted by last name desc : " records sorted-by-last-name-desc)
     ))
+
+(defn -main
+  [& args]
+  (jetty/run-jetty api-routes {:port 3000 :join? false}))
